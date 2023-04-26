@@ -19,6 +19,7 @@
 
     // For React projects
     "tailwindcss",
+    "headlessui",
     "svgs",
     "hookform",
     "arrowParens",
