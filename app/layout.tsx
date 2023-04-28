@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
-import { ClientOnly, Navbar } from './components';
+import { AppClient } from './app';
 import './globals.css';
 
 const font = Inter({
@@ -13,17 +13,11 @@ export const metadata = {
   description: 'Next.js 13 Airbnb Clone',
 };
 
-interface RootLayoutProps {
-  children: ReactNode;
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={font.className}>
-        <ClientOnly>
-          <Navbar />
-        </ClientOnly>
+        <AppClient />
         <main className="pb-20">{children}</main>
       </body>
     </html>
