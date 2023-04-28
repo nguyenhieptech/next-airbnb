@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Fragment, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { Avatar } from '../Avatar';
+import { loginModalRef, signUpModalRef } from '../modals';
 import { MenuItem } from './MenuItem';
 
 export function UserMenu() {
@@ -78,11 +79,11 @@ export function UserMenu() {
               <>
                 <MenuItem
                   label="Sign up"
-                  // onClick={registerModal.onOpen}
+                  onClick={() => signUpModalRef.current?.open()}
                 />
                 <MenuItem
                   label="Login"
-                  // onClick={loginModal.onOpen}
+                  onClick={() => loginModalRef.current?.open()}
                 />
                 <div className="h-[1px] bg-gray-100" />
                 <MenuItem
