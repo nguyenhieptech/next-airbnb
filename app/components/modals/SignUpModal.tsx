@@ -9,12 +9,12 @@ import { Button } from '../Button';
 import { Input } from '../inputs';
 import { loginModalRef } from './LoginModal';
 
-export interface signUpModalRefProps {
+export interface SignUpModalRefProps {
   open: () => void;
   close: () => void;
 }
 
-export const signUpModalRef = createRef<signUpModalRefProps>();
+export const signUpModalRef = createRef<SignUpModalRefProps>();
 
 export function SignUpModal() {
   const [isOpen, setIsOpen] = useState(false);
