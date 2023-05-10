@@ -1,6 +1,7 @@
-import { ReactNode } from 'react';
+import store from '@/app/store';
+import { PropsWithChildren } from 'react';
+import { Provider } from 'react-redux';
 
-// TODO: Add Redux Toolkit
-export function StoreProvider({ children }: { children: ReactNode }) {
-  return <div>{children}</div>;
+export function StoreProvider({ children }: PropsWithChildren) {
+  return <Provider store={store}>{children}</Provider>;
 }
