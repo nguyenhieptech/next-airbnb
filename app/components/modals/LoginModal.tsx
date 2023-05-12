@@ -151,7 +151,11 @@ export function LoginModal() {
                     <div className="mt-4 space-y-4">
                       <Button type="submit">Continue</Button>
                       <div className="h-[1px] bg-neutral-200" />
-                      <Button variant="outline" startIcon={FcGoogle}>
+                      <Button
+                        variant="outline"
+                        startIcon={FcGoogle}
+                        onClick={() => signIn('google')}
+                      >
                         Continue with Google
                       </Button>
                       <Button
