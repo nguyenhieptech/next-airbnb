@@ -1,14 +1,4 @@
-export interface User {
-  createdAt: string;
-  updatedAt: string;
-  emailVerified: string | null;
-  id: string;
-  name: string | null;
-  email: string | null;
-  image: string | null;
-  hashedPassword: string | null;
-  favoriteIds: string[];
-}
+import { User } from '@prisma/client';
 
 export type SafeUser = Omit<
   User,

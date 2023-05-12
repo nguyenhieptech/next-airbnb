@@ -17,9 +17,6 @@ interface NavbarProps {
 
 export function UserMenu({ currentUser }: NavbarProps) {
   const router = useRouter();
-  // const [currentUser, setCurrentUser] = useState('');
-
-  // https://headlessui.com/react/menu
 
   return (
     <Menu as="div" className="relative">
@@ -36,8 +33,6 @@ export function UserMenu({ currentUser }: NavbarProps) {
           <AiOutlineMenu />
           <div className="hidden md:block">
             <Avatar src={currentUser?.image} />
-            {/* // TODO: Check later */}
-            {/* <Avatar src={currentUser?.image} /> */}
           </div>
         </Menu.Button>
       </div>

@@ -154,7 +154,11 @@ export function LoginModal() {
                       <Button variant="outline" startIcon={FcGoogle}>
                         Continue with Google
                       </Button>
-                      <Button variant="outline" startIcon={AiFillGithub}>
+                      <Button
+                        variant="outline"
+                        startIcon={AiFillGithub}
+                        onClick={() => signIn('github')}
+                      >
                         Continue with Github
                       </Button>
                     </div>

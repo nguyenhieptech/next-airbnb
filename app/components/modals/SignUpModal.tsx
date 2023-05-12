@@ -3,6 +3,7 @@
 import { useSignUpMutation } from '@/app/store/api';
 import { SignUpRequest } from '@/app/types';
 import { Dialog, Transition } from '@headlessui/react';
+import { signIn } from 'next-auth/react';
 import { Fragment, createRef, useImperativeHandle, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
@@ -144,7 +145,11 @@ export function SignUpModal() {
                       <Button variant="outline" startIcon={FcGoogle}>
                         Continue with Google
                       </Button>
-                      <Button variant="outline" startIcon={AiFillGithub}>
+                      <Button
+                        variant="outline"
+                        startIcon={AiFillGithub}
+                        onClick={() => signIn('github')}
+                      >
                         Continue with Github
                       </Button>
                     </div>
