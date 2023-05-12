@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
+import { getCurrentUser } from './actions';
 import { AppClient } from './app';
 import './globals.css';
 
@@ -13,11 +14,17 @@ export const metadata = {
   description: 'Next.js 13 Airbnb Clone',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const currentUser = await getCurrentUser();
+
   return (
     <html lang="en">
       <body className={font.className}>
-        <AppClient />
+        <AppClient currentUser={currentUser} />
         <main className="pb-20">{children}</main>
       </body>
     </html>

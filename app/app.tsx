@@ -1,11 +1,16 @@
 import { ClientOnly, Navbar } from './components';
 import { AppProvider } from './providers/AppProvider';
+import { SafeUser } from './types';
 
-export function AppClient() {
+interface AppClientProps {
+  currentUser?: SafeUser | null;
+}
+
+export function AppClient({ currentUser }: AppClientProps) {
   return (
     <ClientOnly>
       <AppProvider>
-        <Navbar />
+        <Navbar currentUser={currentUser} />
       </AppProvider>
     </ClientOnly>
   );
