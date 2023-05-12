@@ -1,26 +1,37 @@
 'use client';
 
+import { LoginRequest } from '@/app/types';
 import { Dialog, Transition } from '@headlessui/react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { Fragment, createRef, useImperativeHandle, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { IoMdClose } from 'react-icons/io';
+import PuffLoader from 'react-spinners/PuffLoader';
 import { Button } from '../Button';
 import { Input } from '../inputs';
 import { signUpModalRef } from './SignUpModal';
 
-export interface LoginModalRefProps {
+export interface LoginModalRef {
   open: () => void;
   close: () => void;
 }
 
-export const loginModalRef = createRef<LoginModalRefProps>();
+export const loginModalRef = createRef<LoginModalRef>();
 
 export function LoginModal() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const close = () => setIsOpen(false);
-  const open = () => setIsOpen(true);
+  function close() {
+    setIsOpen(false);
+  }
+
+  function open() {
+    setIsOpen(true);
+  }
 
   function handleOpenSignUp() {
     close();
@@ -35,6 +46,42 @@ export function LoginModal() {
     }),
     []
   );
+
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginRequest>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
+    setIsLoginLoading(true);
+    try {
+      const callback = await signIn('credentials', {
+        ...data,
+        redirect: false,
+      });
+      if (callback?.ok) {
+        toast.success('Logged in');
+        router.refresh();
+        close();
+      }
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    } catch (error: any) {
+      toast.error(error);
+      setIsLoginLoading(false);
+    }
+    setIsLoginLoading(false);
+  };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -85,21 +132,45 @@ export function LoginModal() {
                     Welcome to Airbnb
                   </Dialog.Title>
 
-                  <div className="mt-4 space-y-4">
-                    <Input label="Email" type="email" />
-                    <Input label="Password" type="password" />
-                  </div>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="mt-4 space-y-4">
+                      <Input
+                        {...register('email')}
+                        label="Email"
+                        type="email"
+                        disabled={isLoginLoading}
+                      />
+                      <Input
+                        {...register('password')}
+                        label="Password"
+                        type="password"
+                        disabled={isLoginLoading}
+                      />
+                    </div>
 
-                  <div className="mt-4 space-y-4">
-                    <Button>Continue</Button>
-                    <div className="h-[1px] bg-neutral-200" />
-                    <Button variant="outline" startIcon={FcGoogle}>
-                      Continue with Google
-                    </Button>
-                    <Button variant="outline" startIcon={AiFillGithub}>
-                      Continue with Github
-                    </Button>
-                  </div>
+                    <div className="mt-4 space-y-4">
+                      <Button type="submit">Continue</Button>
+                      <div className="h-[1px] bg-neutral-200" />
+                      <Button
+                        variant="outline"
+                        startIcon={FcGoogle}
+                        onClick={() => signIn('google')}
+                      >
+                        Continue with Google
+                      </Button>
+                      <Button
+                        variant="outline"
+                        startIcon={AiFillGithub}
+                        onClick={() => signIn('github')}
+                      >
+                        Continue with Github
+                      </Button>
+                    </div>
+
+                    <div className="mt-4 flex justify-center">
+                      {isLoginLoading ? <PuffLoader color="#FF385C" /> : null}
+                    </div>
+                  </form>
 
                   <div className="mt-4 flex flex-row items-center justify-center space-x-1">
                     <p className="text-xs text-text-secondary">

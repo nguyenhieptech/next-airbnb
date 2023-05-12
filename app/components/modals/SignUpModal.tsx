@@ -1,7 +1,12 @@
 'use client';
 
+import { useSignUpMutation } from '@/app/store/api';
+import { SignUpRequest } from '@/app/types';
 import { Dialog, Transition } from '@headlessui/react';
+import { signIn } from 'next-auth/react';
 import { Fragment, createRef, useImperativeHandle, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { IoMdClose } from 'react-icons/io';
@@ -9,12 +14,12 @@ import { Button } from '../Button';
 import { Input } from '../inputs';
 import { loginModalRef } from './LoginModal';
 
-export interface signUpModalRefProps {
+export interface SignUpModalRef {
   open: () => void;
   close: () => void;
 }
 
-export const signUpModalRef = createRef<signUpModalRefProps>();
+export const signUpModalRef = createRef<SignUpModalRef>();
 
 export function SignUpModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +40,32 @@ export function SignUpModal() {
     }),
     []
   );
+
+  const [signUpMutation, signUpResult] = useSignUpMutation();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<SignUpRequest>({
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = async (data: SignUpRequest) => {
+    try {
+      const response = await signUpMutation(data);
+      close();
+      reset();
+      toast.success('Signed up successfully!');
+    } catch (error) {
+      toast.error('Cannot sign up. Please try again.');
+    }
+  };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -85,22 +116,48 @@ export function SignUpModal() {
                     Welcome to Airbnb
                   </Dialog.Title>
 
-                  <div className="mt-4 space-y-4">
-                    <Input label="Email" type="email" />
-                    <Input label="Name" type="text" />
-                    <Input label="Password" type="password" />
-                  </div>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="mt-4 space-y-4">
+                      <Input
+                        {...register('email')}
+                        label="Email"
+                        type="email"
+                        disabled={signUpResult.isLoading}
+                      />
+                      <Input
+                        {...register('name')}
+                        label="Name"
+                        type="text"
+                        disabled={signUpResult.isLoading}
+                      />
+                      <Input
+                        {...register('password')}
+                        label="Password"
+                        type="password"
+                        disabled={signUpResult.isLoading}
+                      />
+                    </div>
 
-                  <div className="mt-4 space-y-4">
-                    <Button>Continue</Button>
-                    <div className="h-[1px] bg-neutral-200" />
-                    <Button variant="outline" startIcon={FcGoogle}>
-                      Continue with Google
-                    </Button>
-                    <Button variant="outline" startIcon={AiFillGithub}>
-                      Continue with Github
-                    </Button>
-                  </div>
+                    <div className="mt-4 space-y-4">
+                      <Button type="submit">Continue</Button>
+                      <div>{signUpResult.isLoading ? 'Loading' : null}</div>
+                      <div className="h-[1px] bg-neutral-200" />
+                      <Button
+                        variant="outline"
+                        startIcon={FcGoogle}
+                        onClick={() => signIn('google')}
+                      >
+                        Continue with Google
+                      </Button>
+                      <Button
+                        variant="outline"
+                        startIcon={AiFillGithub}
+                        onClick={() => signIn('github')}
+                      >
+                        Continue with Github
+                      </Button>
+                    </div>
+                  </form>
 
                   <div className="mt-4 flex flex-row items-center justify-center space-x-1">
                     <p className="text-xs text-text-secondary">

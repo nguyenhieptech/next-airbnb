@@ -1,19 +1,22 @@
 'use client';
 
+import { SafeUser } from '@/app/types';
 import { classNames } from '@/app/utils';
 import { Menu, Transition } from '@headlessui/react';
+import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { Avatar } from '../Avatar';
 import { loginModalRef, signUpModalRef } from '../modals';
 import { MenuItem } from './MenuItem';
 
-export function UserMenu() {
-  const router = useRouter();
-  const [currentUser, setCurrentUser] = useState('');
+interface NavbarProps {
+  currentUser?: SafeUser | null;
+}
 
-  // https://headlessui.com/react/menu
+export function UserMenu({ currentUser }: NavbarProps) {
+  const router = useRouter();
 
   return (
     <Menu as="div" className="relative">
@@ -29,9 +32,7 @@ export function UserMenu() {
         <Menu.Button className="flex cursor-pointer flex-row items-center gap-3 rounded-full border border-neutral-200 p-4 transition hover:shadow-md focus:outline focus:outline-1 focus:outline-neutral-700 md:px-2 md:py-1">
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar src={currentUser} />
-            {/* // TODO: Check later */}
-            {/* <Avatar src={currentUser?.image} /> */}
+            <Avatar src={currentUser?.image} />
           </div>
         </Menu.Button>
       </div>
@@ -70,10 +71,7 @@ export function UserMenu() {
                   // onClick={rentModal.onOpen}
                 />
                 <div className="h-[1px] bg-gray-100" />
-                <MenuItem
-                  label="Logout"
-                  // onClick={() => signOut()}
-                />
+                <MenuItem label="Logout" onClick={() => signOut()} />
               </>
             ) : (
               <>
