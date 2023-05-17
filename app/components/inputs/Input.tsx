@@ -26,8 +26,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             'peer w-full rounded-md border bg-white p-4 pt-6 text-sm text-text-primary placeholder-transparent outline-none transition',
             'disabled:cursor-not-allowed disabled:opacity-70',
             errors
-              ? 'border-primary focus:border-2 focus:border-primary'
-              : 'border-neutral-600 focus:border-2 focus:border-text-primary'
+              ? 'border-primary focus:border-primary'
+              : 'border-neutral-200 focus:border-neutral-900'
           )}
           placeholder={placeholder}
           type={type}
