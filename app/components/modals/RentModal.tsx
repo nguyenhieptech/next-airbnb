@@ -2,8 +2,9 @@
 
 import { useRentModal } from '@/app/hooks';
 import { Dialog, Transition } from '@headlessui/react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { Fragment, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IoMdClose } from 'react-icons/io';
 import { Button } from '../Button';
@@ -69,6 +70,14 @@ export function RentModal() {
   const category = watch('category');
   const location = watch('location');
 
+  const Map = useMemo(
+    () =>
+      dynamic(() => import('../Map'), {
+        ssr: false,
+      }),
+    [location]
+  );
+
   function setCustomValue(name: keyof RentFormData, value: any) {
     setValue(name, value, {
       shouldDirty: true,
@@ -113,6 +122,7 @@ export function RentModal() {
             value={location}
             onChange={(value) => setCustomValue('location', value)}
           />
+          <Map center={location?.latlng} />
 
           <div className="absolute inset-x-0 bottom-0 flex flex-row space-x-2">
             <Button onClick={handleBack} variant="outline">
