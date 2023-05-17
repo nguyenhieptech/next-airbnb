@@ -1,8 +1,9 @@
-import { LoginModal, SignUpModal } from '../components';
+import { LoginModal, RentModal, SignUpModal } from '../components';
 
 export function ModalsProvider() {
   return (
     <>
+      <RentModal />
       <LoginModal />
       <SignUpModal />
     </>

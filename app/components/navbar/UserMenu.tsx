@@ -1,5 +1,6 @@
 'use client';
 
+import { useRentModal } from '@/app/hooks';
 import { SafeUser } from '@/app/types';
 import { classNames } from '@/app/utils';
 import { Menu, Transition } from '@headlessui/react';
@@ -17,14 +18,25 @@ interface NavbarProps {
 
 export function UserMenu({ currentUser }: NavbarProps) {
   const router = useRouter();
+  const rentModal = useRentModal();
+
+  function handleClickOnRent() {
+    if (!currentUser) {
+      loginModalRef.current?.open();
+    } else {
+      rentModal.open();
+    }
+  }
 
   return (
     <Menu as="div" className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
           className={classNames(
-            'normal-4 hidden cursor-pointer rounded-full px-4 py-3 text-sm font-semibold text-neutral-800 transition duration-200 hover:bg-neutral-100 md:block'
+            'hidden cursor-pointer rounded-full px-4 py-3 text-sm font-semibold text-text-primary transition duration-200 hover:bg-neutral-100 md:block'
           )}
+          // onClick={handleClickOnRent}
+          onClick={() => rentModal.open()}
         >
           Airbnb your home
         </div>
@@ -68,7 +80,7 @@ export function UserMenu({ currentUser }: NavbarProps) {
                 />
                 <MenuItem
                   label="Airbnb your home"
-                  // onClick={rentModal.onOpen}
+                  onClick={() => rentModal.open()}
                 />
                 <div className="h-[1px] bg-gray-100" />
                 <MenuItem label="Logout" onClick={() => signOut()} />
@@ -86,12 +98,9 @@ export function UserMenu({ currentUser }: NavbarProps) {
                 <div className="h-[1px] bg-gray-100" />
                 <MenuItem
                   label="Airbnb your home"
-                  // onClick={rentModal.onOpen}
+                  onClick={handleClickOnRent}
                 />
-                <MenuItem
-                  label="Help"
-                  // onClick={rentModal.onOpen}
-                />
+                <MenuItem label="Help" />
               </>
             )}
           </div>
