@@ -16,8 +16,8 @@ export function CategoryInput(props: CategoryInputProps) {
   return (
     <div
       className={classNames(
-        'flex cursor-pointer flex-col gap-3 rounded-xl border-2 p-4 transition  hover:border-black',
-        selected ? 'border-black' : 'border-neutral-200'
+        'flex cursor-pointer flex-col gap-3 rounded-xl border p-4 transition hover:border-text-primary',
+        selected ? 'border-text-primary' : 'border-neutral-200'
       )}
       onClick={() => onClick(label)}
     >

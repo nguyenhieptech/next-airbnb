@@ -4,12 +4,11 @@ import { useRentModal } from '@/app/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 import { Fragment, useState } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
+import { useForm } from 'react-hook-form';
 import { IoMdClose } from 'react-icons/io';
 import { Button } from '../Button';
 import { Heading } from '../Heading';
-import { CategoryInput } from '../inputs';
+import { CategoryInput, SelectCountryInput, SelectedCountry } from '../inputs';
 import { categories } from '../navbar/Categories';
 
 enum STEPS {
@@ -20,6 +19,18 @@ enum STEPS {
   DESCRIPTION = 4,
   PRICE = 5,
 }
+
+type RentFormData = Partial<{
+  category: string;
+  location: SelectedCountry | null;
+  guestCount: number;
+  roomCount: number;
+  bathroomCount: number;
+  imageSrc: string;
+  price: number;
+  title: string;
+  description: string;
+}>;
 
 export function RentModal() {
   const rentModal = useRentModal();
@@ -39,21 +50,26 @@ export function RentModal() {
   }
 
   const {
-    register,
-    handleSubmit,
     setValue,
     watch,
     formState: { errors },
-    reset,
-  } = useForm<FieldValues>({
+  } = useForm<RentFormData>({
     defaultValues: {
       category: '',
+      location: {
+        flag: '',
+        label: '',
+        latlng: [1, 1],
+        region: '',
+        value: '',
+      },
     },
   });
 
   const category = watch('category');
+  const location = watch('location');
 
-  function setCustomValue(name: string, value: any) {
+  function setCustomValue(name: keyof RentFormData, value: any) {
     setValue(name, value, {
       shouldDirty: true,
       shouldTouch: true,
@@ -66,7 +82,7 @@ export function RentModal() {
   function renderBodyContent() {
     if (step === STEPS.CATEGORY) {
       return (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6">
           <Heading
             title="Which of these best describes your place?"
             subtitle="Pick a category"
@@ -87,7 +103,25 @@ export function RentModal() {
         </div>
       );
     } else if (step === STEPS.LOCATION) {
-      return <div>LOCATION</div>;
+      return (
+        <div className="relative flex h-[512px] flex-col gap-6">
+          <Heading
+            title="Where is your place located?"
+            subtitle="Help guests find you!"
+          />
+          <SelectCountryInput
+            value={location}
+            onChange={(value) => setCustomValue('location', value)}
+          />
+
+          <div className="absolute inset-x-0 bottom-0 flex flex-row space-x-2">
+            <Button onClick={handleBack} variant="outline">
+              Back
+            </Button>
+            <Button onClick={handleNext}>Next</Button>
+          </div>
+        </div>
+      );
     } else if (step === STEPS.INFO) {
       return <div>INFO</div>;
     } else if (step === STEPS.IMAGES) {
@@ -129,7 +163,7 @@ export function RentModal() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-xl transition-all md:w-[768px]">
+              <Dialog.Panel className="w-full transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-xl transition-all md:w-[640px]">
                 <div className="flex h-16 items-center justify-between px-6">
                   <button className="w-4 focus:outline-none" onClick={close}>
                     <IoMdClose size={18} />
