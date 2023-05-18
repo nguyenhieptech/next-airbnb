@@ -5,7 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { Fragment, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { IoMdClose } from 'react-icons/io';
 import { Button } from '../Button';
 import { Heading } from '../Heading';
@@ -61,6 +61,7 @@ export function RentModal() {
     register,
     setValue,
     watch,
+    handleSubmit,
     formState: { errors },
   } = useForm<RentFormData>({
     defaultValues: {
@@ -105,6 +106,10 @@ export function RentModal() {
   }
 
   const router = useRouter();
+
+  const onSubmit: SubmitHandler<RentFormData> = async (data) => {
+    console.log(data);
+  };
 
   function renderBodyContent() {
     if (step === STEPS.CATEGORY) {
@@ -222,7 +227,21 @@ export function RentModal() {
         </div>
       );
     } else {
-      return <div>PRICE</div>;
+      return (
+        <div className="flex flex-col gap-6">
+          <Heading
+            title="Now, set your price"
+            subtitle="How much do you charge per night?"
+          />
+          <Input {...register('price')} type="number" label="Price" />
+          <div className="flex flex-row space-x-2">
+            <Button onClick={handleBack} variant="outline">
+              Back
+            </Button>
+            <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+          </div>
+        </div>
+      );
     }
   }
 
@@ -261,7 +280,7 @@ export function RentModal() {
                   <button className="w-4 focus:outline-none" onClick={close}>
                     <IoMdClose size={18} />
                   </button>
-                  <p className="font-semibold text-text-primary">
+                  <p className="text-base font-semibold text-text-primary">
                     Airbnb you home
                   </p>
                   <div className="w-4" />
