@@ -12,6 +12,7 @@ import { Heading } from '../Heading';
 import {
   CategoryInput,
   Counter,
+  ImageUpload,
   SelectCountryInput,
   SelectedCountry,
 } from '../inputs';
@@ -72,6 +73,7 @@ export function RentModal() {
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
+      imageSrc: '',
     },
   });
 
@@ -80,6 +82,7 @@ export function RentModal() {
   const guestCount = watch('guestCount');
   const roomCount = watch('roomCount');
   const bathroomCount = watch('bathroomCount');
+  const imageSrc = watch('imageSrc');
 
   const Map = useMemo(
     () =>
@@ -179,7 +182,24 @@ export function RentModal() {
         </div>
       );
     } else if (step === STEPS.IMAGES) {
-      return <div>IMAGES</div>;
+      return (
+        <div className="flex flex-col gap-6">
+          <Heading
+            title="Add a photo of your place"
+            subtitle="Show guests what your place looks like!"
+          />
+          <ImageUpload
+            onChange={(value) => setCustomValue('imageSrc', value)}
+            value={imageSrc}
+          />
+          <div className="flex flex-row space-x-2">
+            <Button onClick={handleBack} variant="outline">
+              Back
+            </Button>
+            <Button onClick={handleNext}>Next</Button>
+          </div>
+        </div>
+      );
     } else if (step === STEPS.DESCRIPTION) {
       return <div>DESCRIPTION</div>;
     } else {
