@@ -13,6 +13,7 @@ import {
   CategoryInput,
   Counter,
   ImageUpload,
+  Input,
   SelectCountryInput,
   SelectedCountry,
 } from '../inputs';
@@ -57,6 +58,7 @@ export function RentModal() {
   }
 
   const {
+    register,
     setValue,
     watch,
     formState: { errors },
@@ -74,6 +76,8 @@ export function RentModal() {
       roomCount: 1,
       bathroomCount: 1,
       imageSrc: '',
+      title: '',
+      description: '',
     },
   });
 
@@ -201,7 +205,22 @@ export function RentModal() {
         </div>
       );
     } else if (step === STEPS.DESCRIPTION) {
-      return <div>DESCRIPTION</div>;
+      return (
+        <div className="flex flex-col gap-6">
+          <Heading
+            title="How would you describe your place?"
+            subtitle="Short and sweet works best!"
+          />
+          <Input {...register('title')} label="Title" />
+          <Input {...register('description')} label="Description" />
+          <div className="flex flex-row space-x-2">
+            <Button onClick={handleBack} variant="outline">
+              Back
+            </Button>
+            <Button onClick={handleNext}>Next</Button>
+          </div>
+        </div>
+      );
     } else {
       return <div>PRICE</div>;
     }
