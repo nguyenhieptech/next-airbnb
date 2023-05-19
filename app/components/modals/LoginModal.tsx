@@ -113,7 +113,7 @@ export function LoginModal() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-xl transition-all md:w-[568px]">
+              <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-xl transition-all md:w-[576px]">
                 <div className="flex h-16 items-center justify-between px-6">
                   <button className="w-4 focus:outline-none" onClick={close}>
                     <IoMdClose size={18} />
