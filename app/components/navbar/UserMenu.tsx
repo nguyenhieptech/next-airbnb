@@ -35,8 +35,7 @@ export function UserMenu({ currentUser }: NavbarProps) {
           className={classNames(
             'hidden cursor-pointer rounded-full px-4 py-3 text-sm font-semibold text-text-primary transition duration-200 hover:bg-neutral-100 md:block'
           )}
-          // onClick={handleClickOnRent}
-          onClick={() => rentModal.open()}
+          onClick={handleClickOnRent}
         >
           Airbnb your home
         </div>
