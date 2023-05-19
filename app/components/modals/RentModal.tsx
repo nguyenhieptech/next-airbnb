@@ -1,23 +1,26 @@
 'use client';
 
+import {
+  Button,
+  CategoryInput,
+  Counter,
+  Heading,
+  ImageUpload,
+  Input,
+  Loader,
+  SelectCountryInput,
+  SelectedCountry,
+} from '@/app/components';
 import { useRentModal } from '@/app/hooks';
+import { useCreateListingMutation } from '@/app/store/api';
+import { categories } from '@/app/utils';
 import { Dialog, Transition } from '@headlessui/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { Fragment, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { IoMdClose } from 'react-icons/io';
-import { Button } from '../Button';
-import { Heading } from '../Heading';
-import {
-  CategoryInput,
-  Counter,
-  ImageUpload,
-  Input,
-  SelectCountryInput,
-  SelectedCountry,
-} from '../inputs';
-import { categories } from '../navbar/Categories';
 
 enum STEPS {
   CATEGORY = 0,
@@ -30,7 +33,7 @@ enum STEPS {
 
 type RentFormData = Partial<{
   category: string;
-  location: SelectedCountry | null;
+  location: SelectedCountry;
   guestCount: number;
   roomCount: number;
   bathroomCount: number;
@@ -62,6 +65,7 @@ export function RentModal() {
     setValue,
     watch,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<RentFormData>({
     defaultValues: {
@@ -107,8 +111,20 @@ export function RentModal() {
 
   const router = useRouter();
 
+  const [createListingMutation, createListingResult] =
+    useCreateListingMutation();
+
   const onSubmit: SubmitHandler<RentFormData> = async (data) => {
-    console.log(data);
+    try {
+      await createListingMutation(data);
+      toast.success('Listing created!');
+      router.refresh();
+      reset();
+      setStep(STEPS.CATEGORY);
+      rentModal.close();
+    } catch (error) {
+      toast.error('Something went wrong.');
+    }
   };
 
   function renderBodyContent() {
@@ -240,6 +256,7 @@ export function RentModal() {
             </Button>
             <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
           </div>
+          <Loader show={createListingResult.isLoading} />
         </div>
       );
     }
