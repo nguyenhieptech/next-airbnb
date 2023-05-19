@@ -4,6 +4,7 @@ export * from './CategoryBox';
 export * from './ClientOnly';
 export * from './Container';
 export * from './Heading';
+export * from './Loader';
 export * from './Map';
 export * from './inputs';
 export * from './modals';
