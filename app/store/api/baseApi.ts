@@ -6,5 +6,5 @@ export const baseApi = createApi({
   }),
   endpoints: () => ({}),
   reducerPath: 'api',
-  tagTypes: ['Reservations, Listings, Favorites', 'Auth'],
+  tagTypes: ['Reservations', 'Listings', 'Favorites', 'Auth'],
 });

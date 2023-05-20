@@ -1,8 +1,9 @@
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import { getCurrentUser } from './actions';
-import { AppClient } from './app';
+import { Navbar } from './components';
 import './globals.css';
+import { AppProvider } from './providers';
 
 const font = Inter({
   subsets: ['latin'],
@@ -14,18 +15,21 @@ export const metadata = {
   description: 'Next.js 13 Airbnb Clone',
 };
 
-export default async function RootLayout({
-  children,
-}: {
+interface Props {
   children: ReactNode;
-}) {
+}
+
+export default async function RootLayout(props: Props) {
+  const { children } = props;
   const currentUser = await getCurrentUser();
 
   return (
     <html lang="en">
       <body className={font.className}>
-        <AppClient currentUser={currentUser} />
-        <main className="pb-20">{children}</main>
+        <AppProvider>
+          <Navbar currentUser={currentUser} />
+          <main className="pb-20">{children}</main>
+        </AppProvider>
       </body>
     </html>
   );
