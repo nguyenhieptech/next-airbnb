@@ -1,5 +1,5 @@
 import { getCurrentUser, getListings, ListingsParams } from '@/app/actions';
-import { ClientOnly, Container, EmptyState, ListingCard } from './components';
+import { ClientOnly, Container, EmptyState, ListingCard } from '@/components';
 
 interface Props {
   searchParams: ListingsParams;

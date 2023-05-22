@@ -1,7 +1,7 @@
 'use client';
 
-import { formattedCountries } from '@/app/hooks';
-import { classNames } from '@/app/utils';
+import { formattedCountries } from '@/hooks';
+import { classNames } from '@/utils';
 import { Combobox, Transition } from '@headlessui/react';
 import { Fragment, useMemo, useState } from 'react';
 import { BsChevronExpand } from 'react-icons/bs';

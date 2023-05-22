@@ -1,8 +1,8 @@
 'use client';
 
-import { useRentModal } from '@/app/hooks';
-import { SafeUser } from '@/app/types';
-import { classNames } from '@/app/utils';
+import { useRentModal } from '@/hooks';
+import { SafeUser } from '@/types';
+import { classNames } from '@/utils';
 import { Menu, Transition } from '@headlessui/react';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';

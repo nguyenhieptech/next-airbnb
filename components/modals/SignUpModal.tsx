@@ -1,45 +1,39 @@
 'use client';
 
-import { LoginRequest } from '@/app/types';
+import { useSignUpMutation } from '@/store/api';
+import { SignUpRequest } from '@/types';
 import { Dialog, Transition } from '@headlessui/react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { Fragment, createRef, useImperativeHandle, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { IoMdClose } from 'react-icons/io';
-import PuffLoader from 'react-spinners/PuffLoader';
 import { Button } from '../Button';
 import { Input } from '../inputs';
-import { signUpModalRef } from './SignUpModal';
+import { loginModalRef } from './LoginModal';
 
-export interface LoginModalRef {
+export interface SignUpModalRef {
   open: () => void;
   close: () => void;
 }
 
-export const loginModalRef = createRef<LoginModalRef>();
+export const signUpModalRef = createRef<SignUpModalRef>();
 
-export function LoginModal() {
+export function SignUpModal() {
   const [isOpen, setIsOpen] = useState(false);
 
-  function close() {
-    setIsOpen(false);
-  }
+  const close = () => setIsOpen(false);
+  const open = () => setIsOpen(true);
 
-  function open() {
-    setIsOpen(true);
-  }
-
-  function handleOpenSignUp() {
+  function handleOpenLogin() {
     close();
-    signUpModalRef.current?.open();
+    loginModalRef.current?.open();
   }
 
   useImperativeHandle(
-    loginModalRef,
+    signUpModalRef,
     () => ({
       open,
       close,
@@ -47,40 +41,30 @@ export function LoginModal() {
     []
   );
 
-  const [isLoginLoading, setIsLoginLoading] = useState(false);
-  const router = useRouter();
+  const [signUpMutation, signUpResult] = useSignUpMutation();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<LoginRequest>({
+  } = useForm<SignUpRequest>({
     defaultValues: {
+      name: '',
       email: '',
       password: '',
     },
   });
 
-  const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
-    setIsLoginLoading(true);
+  const onSubmit = async (data: SignUpRequest) => {
     try {
-      const callback = await signIn('credentials', {
-        ...data,
-        redirect: false,
-      });
-      if (callback?.ok) {
-        toast.success('Logged in');
-        router.refresh();
-        close();
-      }
-      if (callback?.error) {
-        toast.error(callback.error);
-      }
-    } catch (error: any) {
-      toast.error(error);
-      setIsLoginLoading(false);
+      const response = await signUpMutation(data);
+      close();
+      reset();
+      toast.success('Signed up successfully!');
+    } catch (error) {
+      toast.error('Cannot sign up. Please try again.');
     }
-    setIsLoginLoading(false);
   };
 
   return (
@@ -118,7 +102,7 @@ export function LoginModal() {
                   <button className="w-4 focus:outline-none" onClick={close}>
                     <IoMdClose size={18} />
                   </button>
-                  <p className="font-semibold text-neutral-700">Login</p>
+                  <p className="font-semibold text-neutral-700">Sign up</p>
                   <div className="w-4" />
                 </div>
 
@@ -126,8 +110,8 @@ export function LoginModal() {
 
                 <div className="p-6">
                   <Dialog.Title
-                    className="text-xl font-medium leading-6 text-neutral-700"
                     as="h3"
+                    className="text-xl font-medium leading-6 text-neutral-700"
                   >
                     Welcome to Airbnb
                   </Dialog.Title>
@@ -138,18 +122,25 @@ export function LoginModal() {
                         {...register('email')}
                         label="Email"
                         type="email"
-                        disabled={isLoginLoading}
+                        disabled={signUpResult.isLoading}
+                      />
+                      <Input
+                        {...register('name')}
+                        label="Name"
+                        type="text"
+                        disabled={signUpResult.isLoading}
                       />
                       <Input
                         {...register('password')}
                         label="Password"
                         type="password"
-                        disabled={isLoginLoading}
+                        disabled={signUpResult.isLoading}
                       />
                     </div>
 
                     <div className="mt-4 space-y-4">
                       <Button type="submit">Continue</Button>
+                      <div>{signUpResult.isLoading ? 'Loading' : null}</div>
                       <div className="h-[1px] bg-neutral-200" />
                       <Button
                         variant="outline"
@@ -166,22 +157,18 @@ export function LoginModal() {
                         Continue with Github
                       </Button>
                     </div>
-
-                    <div className="mt-4 flex justify-center">
-                      {isLoginLoading ? <PuffLoader color="#FF385C" /> : null}
-                    </div>
                   </form>
 
                   <div className="mt-4 flex flex-row items-center justify-center space-x-1">
                     <p className="text-xs text-text-secondary">
-                      Don't have an account?
+                      Already have an account?
                     </p>
                     <button
                       className="cursor-pointer rounded-lg p-1 text-xs font-medium text-text-primary focus:outline focus:outline-text-primary"
                       role="button"
-                      onClick={handleOpenSignUp}
+                      onClick={handleOpenLogin}
                     >
-                      Sign up
+                      Login
                     </button>
                   </div>
                 </div>

@@ -2,7 +2,7 @@ import {
   CreateFavoriteRequest,
   DeleteFavoriteRequest,
   FavoriteResponse,
-} from '@/app/types';
+} from '@/types';
 import { baseApi } from './baseApi';
 
 const listingFavoritesUrl = 'favorites';

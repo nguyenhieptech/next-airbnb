@@ -3,7 +3,7 @@ import {
   LoginResponse,
   SignUpRequest,
   SignUpResponse,
-} from '@/app/types';
+} from '@/types';
 import { baseApi } from './baseApi';
 
 const signUpUrl = 'sign-up';

@@ -1,39 +1,45 @@
 'use client';
 
-import { useSignUpMutation } from '@/app/store/api';
-import { SignUpRequest } from '@/app/types';
+import { LoginRequest } from '@/types';
 import { Dialog, Transition } from '@headlessui/react';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { Fragment, createRef, useImperativeHandle, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { IoMdClose } from 'react-icons/io';
+import PuffLoader from 'react-spinners/PuffLoader';
 import { Button } from '../Button';
 import { Input } from '../inputs';
-import { loginModalRef } from './LoginModal';
+import { signUpModalRef } from './SignUpModal';
 
-export interface SignUpModalRef {
+export interface LoginModalRef {
   open: () => void;
   close: () => void;
 }
 
-export const signUpModalRef = createRef<SignUpModalRef>();
+export const loginModalRef = createRef<LoginModalRef>();
 
-export function SignUpModal() {
+export function LoginModal() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const close = () => setIsOpen(false);
-  const open = () => setIsOpen(true);
+  function close() {
+    setIsOpen(false);
+  }
 
-  function handleOpenLogin() {
+  function open() {
+    setIsOpen(true);
+  }
+
+  function handleOpenSignUp() {
     close();
-    loginModalRef.current?.open();
+    signUpModalRef.current?.open();
   }
 
   useImperativeHandle(
-    signUpModalRef,
+    loginModalRef,
     () => ({
       open,
       close,
@@ -41,30 +47,40 @@ export function SignUpModal() {
     []
   );
 
-  const [signUpMutation, signUpResult] = useSignUpMutation();
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
-  } = useForm<SignUpRequest>({
+  } = useForm<LoginRequest>({
     defaultValues: {
-      name: '',
       email: '',
       password: '',
     },
   });
 
-  const onSubmit = async (data: SignUpRequest) => {
+  const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
+    setIsLoginLoading(true);
     try {
-      const response = await signUpMutation(data);
-      close();
-      reset();
-      toast.success('Signed up successfully!');
-    } catch (error) {
-      toast.error('Cannot sign up. Please try again.');
+      const callback = await signIn('credentials', {
+        ...data,
+        redirect: false,
+      });
+      if (callback?.ok) {
+        toast.success('Logged in');
+        router.refresh();
+        close();
+      }
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    } catch (error: any) {
+      toast.error(error);
+      setIsLoginLoading(false);
     }
+    setIsLoginLoading(false);
   };
 
   return (
@@ -102,7 +118,7 @@ export function SignUpModal() {
                   <button className="w-4 focus:outline-none" onClick={close}>
                     <IoMdClose size={18} />
                   </button>
-                  <p className="font-semibold text-neutral-700">Sign up</p>
+                  <p className="font-semibold text-neutral-700">Login</p>
                   <div className="w-4" />
                 </div>
 
@@ -110,8 +126,8 @@ export function SignUpModal() {
 
                 <div className="p-6">
                   <Dialog.Title
-                    as="h3"
                     className="text-xl font-medium leading-6 text-neutral-700"
+                    as="h3"
                   >
                     Welcome to Airbnb
                   </Dialog.Title>
@@ -122,25 +138,18 @@ export function SignUpModal() {
                         {...register('email')}
                         label="Email"
                         type="email"
-                        disabled={signUpResult.isLoading}
-                      />
-                      <Input
-                        {...register('name')}
-                        label="Name"
-                        type="text"
-                        disabled={signUpResult.isLoading}
+                        disabled={isLoginLoading}
                       />
                       <Input
                         {...register('password')}
                         label="Password"
                         type="password"
-                        disabled={signUpResult.isLoading}
+                        disabled={isLoginLoading}
                       />
                     </div>
 
                     <div className="mt-4 space-y-4">
                       <Button type="submit">Continue</Button>
-                      <div>{signUpResult.isLoading ? 'Loading' : null}</div>
                       <div className="h-[1px] bg-neutral-200" />
                       <Button
                         variant="outline"
@@ -157,18 +166,22 @@ export function SignUpModal() {
                         Continue with Github
                       </Button>
                     </div>
+
+                    <div className="mt-4 flex justify-center">
+                      {isLoginLoading ? <PuffLoader color="#FF385C" /> : null}
+                    </div>
                   </form>
 
                   <div className="mt-4 flex flex-row items-center justify-center space-x-1">
                     <p className="text-xs text-text-secondary">
-                      Already have an account?
+                      Don't have an account?
                     </p>
                     <button
                       className="cursor-pointer rounded-lg p-1 text-xs font-medium text-text-primary focus:outline focus:outline-text-primary"
                       role="button"
-                      onClick={handleOpenLogin}
+                      onClick={handleOpenSignUp}
                     >
-                      Login
+                      Sign up
                     </button>
                   </div>
                 </div>

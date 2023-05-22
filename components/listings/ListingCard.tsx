@@ -1,8 +1,8 @@
 'use client';
 
-import { Button, HeartButton } from '@/app/components';
-import { useCountries } from '@/app/hooks';
-import { SafeListing, SafeReservation, SafeUser } from '@/app/types';
+import { Button, HeartButton } from '@/components';
+import { useCountries } from '@/hooks';
+import { SafeListing, SafeReservation, SafeUser } from '@/types';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';

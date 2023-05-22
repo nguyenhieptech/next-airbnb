@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Heading } from '@/app/components';
+import { Button, Heading } from '@/components';
 import { useRouter } from 'next/navigation';
 
 interface EmptyStateProps {

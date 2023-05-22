@@ -10,10 +10,10 @@ import {
   Loader,
   SelectCountryInput,
   SelectedCountry,
-} from '@/app/components';
-import { useRentModal } from '@/app/hooks';
-import { useCreateListingMutation } from '@/app/store/api';
-import { categories } from '@/app/utils';
+} from '@/components';
+import { useRentModal } from '@/hooks';
+import { useCreateListingMutation } from '@/store/api';
+import { categories } from '@/utils';
 import { Dialog, Transition } from '@headlessui/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';

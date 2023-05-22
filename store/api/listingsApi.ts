@@ -1,4 +1,4 @@
-import { CreateListingRequest, CreateListingResponse } from '@/app/types';
+import { CreateListingRequest, CreateListingResponse } from '@/types';
 import { baseApi } from './baseApi';
 
 const listingsUrl = 'listings';

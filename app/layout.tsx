@@ -1,9 +1,9 @@
+import { AppProvider } from '@/providers';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
+import { Navbar } from '../components';
 import { getCurrentUser } from './actions';
-import { Navbar } from './components';
 import './globals.css';
-import { AppProvider } from './providers';
 
 const font = Inter({
   subsets: ['latin'],

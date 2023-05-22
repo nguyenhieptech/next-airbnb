@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@/app/utils';
+import { classNames } from '@/utils';
 import { IconType } from 'react-icons';
 
 interface CategoryInputProps {

@@ -1,5 +1,5 @@
-import prisma from '@/app/libs/prismadb';
-import { SignUpResponse } from '@/app/types';
+import prisma from '@/libs/prismadb';
+import { SignUpResponse } from '@/types';
 import bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
 

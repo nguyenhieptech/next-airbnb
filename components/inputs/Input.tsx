@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@/app/utils';
+import { classNames } from '@/utils';
 import React from 'react';
 import { FieldErrors } from 'react-hook-form';
 

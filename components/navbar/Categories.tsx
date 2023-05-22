@@ -1,7 +1,7 @@
 'use client';
 
-import { CategoryBox, Container } from '@/app/components';
-import { categories } from '@/app/utils';
+import { CategoryBox, Container } from '@/components';
+import { categories } from '@/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 export function Categories() {

@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@/app/utils';
+import { classNames } from '@/utils';
 import React, { forwardRef } from 'react';
 import { IconType } from 'react-icons';
 

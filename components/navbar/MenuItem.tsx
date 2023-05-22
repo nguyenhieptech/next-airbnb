@@ -1,4 +1,4 @@
-import { classNames } from '@/app/utils';
+import { classNames } from '@/utils';
 import { Menu } from '@headlessui/react';
 
 interface MenuItemProps {
