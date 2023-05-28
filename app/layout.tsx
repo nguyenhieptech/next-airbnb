@@ -28,7 +28,7 @@ export default async function RootLayout(props: Props) {
       <body className={font.className}>
         <AppProvider>
           <Navbar currentUser={currentUser} />
-          <main className="pb-20">{children}</main>
+          <main className="mt-6 pb-16">{children}</main>
         </AppProvider>
       </body>
     </html>

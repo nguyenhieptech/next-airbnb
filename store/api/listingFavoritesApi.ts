@@ -1,8 +1,4 @@
-import {
-  CreateFavoriteRequest,
-  DeleteFavoriteRequest,
-  FavoriteResponse,
-} from '@/types';
+import { CreateFavoriteRequest, DeleteFavoriteRequest, FavoriteResponse } from '@/types';
 import { baseApi } from './baseApi';
 
 const listingFavoritesUrl = 'favorites';
@@ -29,5 +25,4 @@ export const listingFavoritesApi = baseApi.injectEndpoints({
   overrideExisting: true,
 });
 
-export const { useCreateFavoriteMutation, useDeleteFavoriteMutation } =
-  listingFavoritesApi;
+export const { useCreateFavoriteMutation, useDeleteFavoriteMutation } = listingFavoritesApi;

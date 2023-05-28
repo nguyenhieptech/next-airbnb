@@ -6,7 +6,7 @@ import { SafeListing, SafeReservation, SafeUser } from '@/types';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 
 interface ListingCardProps {
   data: SafeListing;
@@ -30,21 +30,15 @@ export function ListingCard(props: ListingCardProps) {
   } = props;
   const router = useRouter();
   const { getByValue } = useCountries();
-
   const location = getByValue(data.locationValue);
 
-  const handleCancel = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
-
-      if (disabled) {
-        return;
-      }
-
-      onAction(actionId);
-    },
-    [disabled, onAction, actionId]
-  );
+  function handleCancel(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    if (disabled) {
+      return;
+    }
+    onAction(actionId);
+  }
 
   const price = useMemo(() => {
     if (reservation) {
@@ -64,13 +58,13 @@ export function ListingCard(props: ListingCardProps) {
 
   return (
     <div
-      className="group col-span-1 cursor-pointer"
-      // onClick={() => router.push(`/listings/${data.id}`)}
+      className="col-span-1 cursor-pointer"
+      onClick={() => router.push(`/listings/${data.id}`)}
     >
       <div className="flex w-full flex-col gap-2">
         <div className="relative aspect-square w-full overflow-hidden rounded-xl">
           <Image
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover transition duration-500 hover:scale-105"
             src={data.imageSrc}
             alt="Listing"
             fill
@@ -90,7 +84,9 @@ export function ListingCard(props: ListingCardProps) {
           {!reservation && <div>night</div>}
         </div>
         {actionLabel && (
-          <Button disabled={disabled} size="sm" onClick={handleCancel} />
+          <Button disabled={disabled} size="sm" onClick={handleCancel}>
+            Cancel
+          </Button>
         )}
       </div>
     </div>

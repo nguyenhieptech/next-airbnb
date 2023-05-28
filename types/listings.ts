@@ -33,6 +33,13 @@ export type SafeReservation = Omit<
   listing: SafeListing;
 };
 
+export type CreateReservationRequest = {
+  totalPrice: number;
+  startDate?: Date;
+  endDate?: Date;
+  listingId: string;
+};
+
 export interface CreateFavoriteRequest {
   id: string;
 }
@@ -42,3 +49,7 @@ export type DeleteFavoriteRequest = CreateFavoriteRequest;
 export type FavoriteResponse = Partial<{
   favoriteIds: string[];
 }>;
+
+export type DeleteReservationRequest = {
+  id: string;
+};

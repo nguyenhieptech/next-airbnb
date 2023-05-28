@@ -5,10 +5,7 @@ const listingsUrl = 'listings';
 
 export const listingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createListing: builder.mutation<
-      CreateListingResponse,
-      CreateListingRequest
-    >({
+    createListing: builder.mutation<CreateListingResponse, CreateListingRequest>({
       query: (body) => ({
         url: listingsUrl,
         method: 'POST',
