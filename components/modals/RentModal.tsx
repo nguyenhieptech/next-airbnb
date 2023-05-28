@@ -22,14 +22,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { IoMdClose } from 'react-icons/io';
 
-enum STEPS {
-  CATEGORY = 0,
-  LOCATION = 1,
-  INFO = 2,
-  IMAGES = 3,
-  DESCRIPTION = 4,
-  PRICE = 5,
-}
+const STEPS = {
+  CATEGORY: 0,
+  LOCATION: 1,
+  INFO: 2,
+  IMAGES: 3,
+  DESCRIPTION: 4,
+  PRICE: 5,
+};
 
 type RentFormData = Partial<{
   category: string;

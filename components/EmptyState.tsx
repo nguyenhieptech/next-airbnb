@@ -3,17 +3,19 @@
 import { Button, Heading } from '@/components';
 import { useRouter } from 'next/navigation';
 
-interface EmptyStateProps {
-  title?: string;
-  subtitle?: string;
-  showReset?: boolean;
-}
+type EmptyStateProps = Partial<{
+  title: string;
+  subtitle: string;
+  showReset: boolean;
+  buttonText: string;
+}>;
 
 export function EmptyState(props: EmptyStateProps) {
   const {
     title = 'No exact matches',
     subtitle = 'Try changing or removing some of your filters.',
     showReset,
+    buttonText = 'Remove all filters',
   } = props;
 
   const router = useRouter();
@@ -24,7 +26,7 @@ export function EmptyState(props: EmptyStateProps) {
       <div className="mt-4 w-48">
         {showReset && (
           <Button variant="outline" onClick={() => router.push('/')}>
-            Remove all filters
+            {buttonText}
           </Button>
         )}
       </div>
