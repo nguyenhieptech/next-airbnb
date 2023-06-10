@@ -13,10 +13,20 @@ import { FcGoogle } from 'react-icons/fc';
 import { IoMdClose } from 'react-icons/io';
 import { PuffLoader } from 'react-spinners';
 
-export interface LoginModalRef {
+/**
+ * ? Migrate to Zustand?
+ * This is another way to manage "global modal state" using
+ * createRef, useState and useImperativeHandle combine. LoginModal and
+ * If you want to open/close anywhere, trigger like global state, this solution works fine.
+ * For other approach, use simple and light-weight state management libraries
+ * like Zustand would save the day.
+ * See SearchModal and RentModal. I'll leave this technique for reference later.
+ */
+
+export type LoginModalRef = {
   open: () => void;
   close: () => void;
-}
+};
 
 export const loginModalRef = createRef<LoginModalRef>();
 
