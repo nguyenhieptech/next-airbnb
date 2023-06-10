@@ -1,14 +1,14 @@
-export interface SignUpRequest {
+export type APIRequestSignUp = {
   name: string;
   email: string;
   password: string;
-}
+};
 
-export interface SignUpResponse extends SignUpRequest {}
+export type APIResponseSignUp = APIRequestSignUp & {};
 
-export interface LoginRequest {
+export type APIRequestLogin = {
   email: string;
   password: string;
-}
+};
 
-export interface LoginResponse extends LoginRequest {}
+export type APIResponseLogin = APIRequestLogin & {};

@@ -1,11 +1,11 @@
-import { CreateReservationRequest, DeleteReservationRequest, SafeReservation } from '@/types';
+import { APIRequestCreateReservation, APIRequestDeleteReservation, SafeReservation } from '@/types';
 import { baseApi } from './baseApi';
 
 const reservationsUrl = 'reservations';
 
 export const reservationsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createReservation: builder.mutation<SafeReservation, CreateReservationRequest>({
+    createReservation: builder.mutation<SafeReservation, APIRequestCreateReservation>({
       query: (body) => ({
         url: reservationsUrl,
         method: 'POST',
@@ -13,7 +13,7 @@ export const reservationsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Reservations'],
     }),
-    deleteReservation: builder.mutation<SafeReservation, DeleteReservationRequest>({
+    deleteReservation: builder.mutation<SafeReservation, APIRequestDeleteReservation>({
       query: (body) => ({
         url: `${reservationsUrl}/${body.id}`,
         method: 'DELETE',

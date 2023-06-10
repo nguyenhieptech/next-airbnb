@@ -1,7 +1,7 @@
 'use client';
 
 import { useSignUpMutation } from '@/store/api';
-import { SignUpRequest } from '@/types';
+import { APIRequestSignUp } from '@/types';
 import { Dialog, Transition } from '@headlessui/react';
 import { signIn } from 'next-auth/react';
 import { Fragment, createRef, useImperativeHandle, useState } from 'react';
@@ -48,7 +48,7 @@ export function SignUpModal() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<SignUpRequest>({
+  } = useForm<APIRequestSignUp>({
     defaultValues: {
       name: '',
       email: '',
@@ -56,7 +56,7 @@ export function SignUpModal() {
     },
   });
 
-  const onSubmit = async (data: SignUpRequest) => {
+  const onSubmit = async (data: APIRequestSignUp) => {
     try {
       const response = await signUpMutation(data);
       close();

@@ -1,6 +1,6 @@
 import { Listing, Reservation } from '@prisma/client';
 
-export type CreateListingRequest = Partial<{
+export type APIRequestCreateListing = Partial<{
   category: string;
   location: {
     flag: string;
@@ -17,7 +17,7 @@ export type CreateListingRequest = Partial<{
   description: string;
 }>;
 
-export type CreateListingResponse = Listing;
+export type APIResponseCreateListing = Listing;
 
 export type SafeListing = Omit<Listing, 'createdAt'> & {
   createdAt: string;
@@ -33,23 +33,31 @@ export type SafeReservation = Omit<
   listing: SafeListing;
 };
 
-export type CreateReservationRequest = {
+export type APIRequestCreateReservation = {
   totalPrice: number;
   startDate?: Date;
   endDate?: Date;
   listingId: string;
 };
 
-export interface CreateFavoriteRequest {
+export type APIRequestCreateFavorite = {
   id: string;
-}
+};
 
-export type DeleteFavoriteRequest = CreateFavoriteRequest;
+export type APIRequestDeleteFavorite = APIRequestCreateFavorite;
 
-export type FavoriteResponse = Partial<{
+export type APIResponseFavorite = Partial<{
   favoriteIds: string[];
 }>;
 
-export type DeleteReservationRequest = {
+export type APIRequestDeleteReservation = {
+  id: string;
+};
+
+export type APIResponseDeleteListing = {
+  count: number;
+};
+
+export type APIRequestDeleteListing = {
   id: string;
 };

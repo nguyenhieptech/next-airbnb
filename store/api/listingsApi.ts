@@ -1,11 +1,16 @@
-import { CreateListingRequest, CreateListingResponse } from '@/types';
+import {
+  APIRequestCreateListing,
+  APIRequestDeleteListing,
+  APIResponseCreateListing,
+  APIResponseDeleteListing,
+} from '@/types';
 import { baseApi } from './baseApi';
 
 const listingsUrl = 'listings';
 
 export const listingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createListing: builder.mutation<CreateListingResponse, CreateListingRequest>({
+    createListing: builder.mutation<APIResponseCreateListing, APIRequestCreateListing>({
       query: (body) => ({
         url: listingsUrl,
         method: 'POST',
@@ -13,7 +18,7 @@ export const listingsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Listings'],
     }),
-    deleteListing: builder.mutation<any, any>({
+    deleteListing: builder.mutation<APIResponseDeleteListing, APIRequestDeleteListing>({
       query: (body) => ({
         url: `${listingsUrl}/${body.id}`,
         method: 'DELETE',

@@ -1,6 +1,6 @@
 'use client';
 
-import { LoginRequest } from '@/types';
+import { APIRequestLogin } from '@/types';
 import { Dialog, Transition } from '@headlessui/react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -54,14 +54,14 @@ export function LoginModal() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginRequest>({
+  } = useForm<APIRequestLogin>({
     defaultValues: {
       email: '',
       password: '',
     },
   });
 
-  const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
+  const onSubmit: SubmitHandler<APIRequestLogin> = async (data) => {
     setIsLoginLoading(true);
     try {
       const callback = await signIn('credentials', {
