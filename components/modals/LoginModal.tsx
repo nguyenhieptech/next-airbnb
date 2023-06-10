@@ -1,5 +1,6 @@
 'use client';
 
+import { Button, Input, signUpModalRef } from '@/components';
 import { APIRequestLogin } from '@/types';
 import { Dialog, Transition } from '@headlessui/react';
 import { signIn } from 'next-auth/react';
@@ -10,10 +11,7 @@ import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { IoMdClose } from 'react-icons/io';
-import PuffLoader from 'react-spinners/PuffLoader';
-import { Button } from '../Button';
-import { Input } from '../inputs';
-import { signUpModalRef } from './SignUpModal';
+import { PuffLoader } from 'react-spinners';
 
 export interface LoginModalRef {
   open: () => void;
