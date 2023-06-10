@@ -11,9 +11,18 @@ export const listingsApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Listings'],
+    }),
+    deleteListing: builder.mutation<any, any>({
+      query: (body) => ({
+        url: `${listingsUrl}/${body.id}`,
+        method: 'DELETE',
+        body,
+      }),
+      invalidatesTags: ['Listings'],
     }),
   }),
   overrideExisting: true,
 });
 
-export const { useCreateListingMutation } = listingsApi;
+export const { useCreateListingMutation, useDeleteListingMutation } = listingsApi;
