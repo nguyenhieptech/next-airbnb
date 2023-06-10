@@ -14,5 +14,10 @@ body,
 .leaflet-control,
 .leaflet-pane,
 .leaflet-top {
-  z-index: 0 !important;
+  @apply !z-0;
+}
+
+/* react-date-range */
+.rdrMonth {
+  @apply w-full;
 }

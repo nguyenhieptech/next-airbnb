@@ -8,5 +8,13 @@
   "bracketSameLine": false,
   "tabWidth": 2,
   "printWidth": 80,
-  "organizeImportsSkipDestructiveCodeActions": true
+  "organizeImportsSkipDestructiveCodeActions": true,
+  "overrides": [
+    {
+      "files": "./store/api/*.ts",
+      "options": {
+        "printWidth": 120
+      }
+    }
+  ]
 }

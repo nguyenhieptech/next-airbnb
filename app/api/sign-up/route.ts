@@ -1,10 +1,10 @@
-import prisma from '@/app/libs/prismadb';
-import { SignUpResponse } from '@/app/types';
+import prisma from '@/libs/prismadb';
+import { APIResponseSignUp } from '@/types';
 import bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  const body: SignUpResponse = await request.json();
+  const body: APIResponseSignUp = await request.json();
 
   const { email, name, password } = body;
 
