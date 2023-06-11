@@ -1,5 +1,5 @@
 import { APIRequestSignUp, APIResponseSignUp } from '@/types';
-import { baseApi } from './baseApi';
+import { baseApi } from './base-api';
 
 const signUpUrl = 'sign-up';
 

@@ -4,7 +4,7 @@ import {
   APIResponseCreateListing,
   APIResponseDeleteListing,
 } from '@/types';
-import { baseApi } from './baseApi';
+import { baseApi } from './base-api';
 
 const listingsUrl = 'listings';
 
