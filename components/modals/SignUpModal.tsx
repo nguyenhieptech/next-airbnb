@@ -1,5 +1,6 @@
 'use client';
 
+import { Button, Input, loginModalRef } from '@/components';
 import { useSignUpMutation } from '@/store/api';
 import { APIRequestSignUp } from '@/types';
 import { Dialog, Transition } from '@headlessui/react';
@@ -10,9 +11,6 @@ import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { IoMdClose } from 'react-icons/io';
-import { Button } from '../Button';
-import { Input } from '../inputs';
-import { loginModalRef } from './LoginModal';
 
 export interface SignUpModalRef {
   open: () => void;
