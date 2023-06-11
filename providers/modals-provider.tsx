@@ -1,4 +1,4 @@
-import { LoginModal, RentModal, SignUpModal, SearchModal } from '@/components';
+import { LoginModal, RentModal, SearchModal, SignUpModal } from '@/components';
 
 export function ModalsProvider() {
   return (

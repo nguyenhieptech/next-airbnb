@@ -1,10 +1,10 @@
 'use client';
 
-interface HeadingProps {
+type HeadingProps = {
   title: string;
   subtitle?: string;
   center?: boolean;
-}
+};
 
 export function Heading({ title, subtitle, center }: HeadingProps) {
   return (

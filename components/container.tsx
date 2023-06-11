@@ -2,9 +2,9 @@
 
 import { ReactNode } from 'react';
 
-interface ContainerProps {
+type ContainerProps = {
   children: ReactNode;
-}
+};
 
 export function Container({ children }: ContainerProps) {
   return (

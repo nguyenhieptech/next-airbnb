@@ -7,10 +7,10 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-interface TripsClientProps {
+type TripsClientProps = {
   reservations: SafeReservation[];
   currentUser?: SafeUser | null;
-}
+};
 
 export function TripsClient(props: TripsClientProps) {
   const { reservations, currentUser } = props;

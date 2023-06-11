@@ -1,21 +1,20 @@
 'use client';
 
+import { Loader, loginModalRef } from '@/components';
+import {
+  useCreateFavoriteMutation,
+  useDeleteFavoriteMutation,
+} from '@/store/api';
 import { SafeUser } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import {
-  useCreateFavoriteMutation,
-  useDeleteFavoriteMutation,
-} from '../store/api';
-import { Loader } from './Loader';
-import { loginModalRef } from './modals';
 
-interface HeartButtonProps {
+type HeartButtonProps = {
   listingId: string;
   currentUser?: SafeUser | null;
-}
+};
 
 export function HeartButton(props: HeartButtonProps) {
   const { listingId, currentUser } = props;

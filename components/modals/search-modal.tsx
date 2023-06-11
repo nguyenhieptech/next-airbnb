@@ -51,7 +51,7 @@ export function SearchModal() {
 
   const Map = useMemo(
     () =>
-      dynamic(() => import('@/components/Map'), {
+      dynamic(() => import('@/components/map'), {
         ssr: false,
       }),
     [location]

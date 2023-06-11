@@ -1,5 +1,5 @@
 import { APIRequestCreateReservation, APIRequestDeleteReservation, SafeReservation } from '@/types';
-import { baseApi } from './baseApi';
+import { baseApi } from './base-api';
 
 const reservationsUrl = 'reservations';
 

@@ -1,5 +1,5 @@
 import { APIRequestCreateFavorite, APIRequestDeleteFavorite, APIResponseFavorite } from '@/types';
-import { baseApi } from './baseApi';
+import { baseApi } from './base-api';
 
 const listingFavoritesUrl = 'favorites';
 

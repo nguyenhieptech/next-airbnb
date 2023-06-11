@@ -95,7 +95,7 @@ export function RentModal() {
 
   const Map = useMemo(
     () =>
-      dynamic(() => import('../Map'), {
+      dynamic(() => import('../map'), {
         ssr: false,
       }),
     [location]

@@ -4,7 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import type { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { baseApi } from './api/baseApi';
+import { baseApi } from './api/base-api';
 import { counterReducer } from './slices';
 
 export const store = configureStore({

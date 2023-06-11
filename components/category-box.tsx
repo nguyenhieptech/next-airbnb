@@ -1,16 +1,16 @@
 'use client';
 
+import { classNames } from '@/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 import qs from 'query-string';
 import { useCallback } from 'react';
 import { IconType } from 'react-icons';
-import { classNames } from '../utils';
 
-interface CategoryBoxProps {
+type CategoryBoxProps = {
   icon: IconType;
   label: string;
   isSelected?: boolean;
-}
+};
 
 export function CategoryBox(props: CategoryBoxProps) {
   const { label, isSelected, icon: Icon } = props;
