@@ -1,6 +1,6 @@
 import { getCurrentUser, getReservations } from '@/app/actions';
 import { Button, ClientOnly, EmptyState } from '@/components';
-import { TripsClient } from './TripsClient';
+import { TripsClient } from './trips-client';
 
 export default async function TripsPage() {
   const currentUser = await getCurrentUser();

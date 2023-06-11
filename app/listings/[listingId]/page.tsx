@@ -1,6 +1,6 @@
 import { getCurrentUser, getListingById, getReservations } from '@/app/actions';
 import { ClientOnly, EmptyState } from '@/components';
-import { ListingClient } from './ListingClient';
+import { ListingClient } from './listing-client';
 
 type Params = {
   listingId?: string;

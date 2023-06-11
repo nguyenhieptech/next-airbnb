@@ -1,6 +1,6 @@
 import { getCurrentUser, getReservations } from '@/app/actions';
 import { ClientOnly, EmptyState } from '@/components';
-import { ReservationsClient } from './ReservationsClient';
+import { ReservationsClient } from './reservations-client';
 
 export default async function ReservationsPage() {
   const currentUser = await getCurrentUser();
