@@ -1,9 +1,5 @@
+import { Categories, Container, Logo, Search, UserMenu } from '@/components';
 import { SafeUser } from '@/types';
-import { Container } from '../Container';
-import { Categories } from './Categories';
-import { Logo } from './Logo';
-import { Search } from './Search';
-import { UserMenu } from './UserMenu';
 
 type NavbarProps = {
   currentUser?: SafeUser | null;

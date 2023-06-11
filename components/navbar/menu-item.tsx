@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@/utils';
 import { Menu } from '@headlessui/react';
 
@@ -8,6 +10,7 @@ interface MenuItemProps {
 
 export function MenuItem(props: MenuItemProps) {
   const { label, onClick } = props;
+
   return (
     <Menu.Item>
       {({ active }) => (

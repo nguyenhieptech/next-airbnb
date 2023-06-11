@@ -1,5 +1,6 @@
 'use client';
 
+import { Avatar, MenuItem, loginModalRef, signUpModalRef } from '@/components';
 import { useRentModal } from '@/hooks';
 import { SafeUser } from '@/types';
 import { classNames } from '@/utils';
@@ -8,13 +9,10 @@ import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Fragment } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { Avatar } from '../Avatar';
-import { loginModalRef, signUpModalRef } from '../modals';
-import { MenuItem } from './MenuItem';
 
-interface NavbarProps {
+type NavbarProps = {
   currentUser?: SafeUser | null;
-}
+};
 
 export function UserMenu({ currentUser }: NavbarProps) {
   const router = useRouter();
