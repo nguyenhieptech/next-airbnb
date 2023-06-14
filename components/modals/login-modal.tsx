@@ -182,7 +182,7 @@ export function LoginModal() {
 
                   <div className="mt-4 flex flex-row items-center justify-center space-x-1">
                     <p className="text-xs text-text-secondary">
-                      Don't have an account?
+                      {"Don't have an account"}
                     </p>
                     <button
                       className="cursor-pointer rounded-lg p-1 text-xs font-medium text-text-primary focus:outline focus:outline-text-primary"
