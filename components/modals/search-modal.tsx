@@ -54,6 +54,7 @@ export function SearchModal() {
       dynamic(() => import('@/components/map'), {
         ssr: false,
       }),
+    /* eslint-disable */
     [location]
   );
 

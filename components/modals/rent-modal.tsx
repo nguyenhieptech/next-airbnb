@@ -98,6 +98,7 @@ export function RentModal() {
       dynamic(() => import('../map'), {
         ssr: false,
       }),
+    /* eslint-disable */
     [location]
   );
 
