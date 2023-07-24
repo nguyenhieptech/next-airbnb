@@ -6,7 +6,6 @@
 
 <img width="1370" alt="image" src="https://github.com/nguyenhieptech/next13-airbnb/assets/48057064/9524f992-513a-41de-9afd-972158b28541">
 
-
 ## Adjustments
 
 In this project, there are some differences with [the original source code](https://github.com/AntonioErdeljac/next13-airbnb-clone):
