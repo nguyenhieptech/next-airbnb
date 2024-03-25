@@ -1,4 +1,4 @@
-# Next13 Airbnb Clone
+# Next Airbnb Clone
 
 <img width="1378" alt="image" src="https://github.com/nguyenhieptech/next13-airbnb/assets/48057064/1300d3d8-6e5b-4391-a601-26e1ff0bca8f">
 

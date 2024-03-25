@@ -1,11 +1,18 @@
-import { APIRequestCreateFavorite, APIRequestDeleteFavorite, APIResponseFavorite } from '@/types';
+import {
+  APIRequestCreateFavorite,
+  APIRequestDeleteFavorite,
+  APIResponseFavorite,
+} from '@/types';
 import { baseApi } from './base-api';
 
 const listingFavoritesUrl = 'favorites';
 
 export const listingFavoritesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createFavorite: builder.mutation<APIResponseFavorite, APIRequestCreateFavorite>({
+    createFavorite: builder.mutation<
+      APIResponseFavorite,
+      APIRequestCreateFavorite
+    >({
       query: (body) => ({
         url: `${listingFavoritesUrl}/${body.id}`,
         method: 'POST',
@@ -13,7 +20,10 @@ export const listingFavoritesApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Listings'],
     }),
-    deleteFavorite: builder.mutation<APIResponseFavorite, APIRequestDeleteFavorite>({
+    deleteFavorite: builder.mutation<
+      APIResponseFavorite,
+      APIRequestDeleteFavorite
+    >({
       query: (body) => ({
         url: `${listingFavoritesUrl}/${body.id}`,
         method: 'DELETE',
@@ -25,4 +35,5 @@ export const listingFavoritesApi = baseApi.injectEndpoints({
   overrideExisting: true,
 });
 
-export const { useCreateFavoriteMutation, useDeleteFavoriteMutation } = listingFavoritesApi;
+export const { useCreateFavoriteMutation, useDeleteFavoriteMutation } =
+  listingFavoritesApi;

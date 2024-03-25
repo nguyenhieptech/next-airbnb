@@ -13,7 +13,9 @@ type ArgumentsType = {
 };
 
 const axiosBaseQuery =
-  ({ baseUrl }: { baseUrl: string } = { baseUrl: '' }): BaseQueryFn<ArgumentsType, unknown, unknown> =>
+  (
+    { baseUrl }: { baseUrl: string } = { baseUrl: '' }
+  ): BaseQueryFn<ArgumentsType, unknown, unknown> =>
   async ({ url, method, data, params }) => {
     try {
       const result = await axios({ url: baseUrl + url, method, data, params });

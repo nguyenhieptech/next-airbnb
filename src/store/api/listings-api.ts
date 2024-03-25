@@ -10,7 +10,10 @@ const listingsUrl = 'listings';
 
 export const listingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createListing: builder.mutation<APIResponseCreateListing, APIRequestCreateListing>({
+    createListing: builder.mutation<
+      APIResponseCreateListing,
+      APIRequestCreateListing
+    >({
       query: (body) => ({
         url: listingsUrl,
         method: 'POST',
@@ -18,7 +21,10 @@ export const listingsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Listings'],
     }),
-    deleteListing: builder.mutation<APIResponseDeleteListing, APIRequestDeleteListing>({
+    deleteListing: builder.mutation<
+      APIResponseDeleteListing,
+      APIRequestDeleteListing
+    >({
       query: (body) => ({
         url: `${listingsUrl}/${body.id}`,
         method: 'DELETE',
@@ -30,4 +36,5 @@ export const listingsApi = baseApi.injectEndpoints({
   overrideExisting: true,
 });
 
-export const { useCreateListingMutation, useDeleteListingMutation } = listingsApi;
+export const { useCreateListingMutation, useDeleteListingMutation } =
+  listingsApi;

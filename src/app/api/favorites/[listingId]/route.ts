@@ -32,7 +32,7 @@ export async function POST(request: Request, { params }: { params: Params }) {
     },
   });
 
-  // ! Should not return hashedPassword here: return NextResponse.json(user);
+  //! Should not return hashedPassword here: return NextResponse.json(user);
   return NextResponse.json({ favoriteIds: user.favoriteIds });
 }
 
