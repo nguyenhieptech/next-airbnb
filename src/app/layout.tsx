@@ -1,23 +1,20 @@
+import { getCurrentUser } from '@/app/actions';
+import { Navbar } from '@/components';
 import { AppProvider } from '@/providers';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ReactNode } from 'react';
-import { Navbar } from '../components';
-import { getCurrentUser } from './actions';
 import './globals.css';
 
-const font = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-});
+const font = Inter({ subsets: ['latin'], display: 'swap' });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Airbnb',
-  description: 'Next.js 13 Airbnb Clone',
+  description: 'NextJS Airbnb Clone',
 };
 
-interface Props {
-  children: ReactNode;
-}
+type Props = Readonly<{
+  children: React.ReactNode;
+}>;
 
 export default async function RootLayout(props: Props) {
   const { children } = props;

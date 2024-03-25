@@ -1,4 +1,4 @@
-# Next13 Airbnb Clone
+# Next Airbnb Clone
 
 ## Adjustments
 

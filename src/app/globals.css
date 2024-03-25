@@ -5,9 +5,21 @@
 html,
 body,
 :root {
-  height: 100%;
-  /* @apply bg-neutral-50; */
+  @apply h-full;
 }
+
+:root {
+  @apply scroll-smooth antialiased;
+}
+
+/* @layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
 
 /* Leaflet for map */
 .leaflet-bottom,
